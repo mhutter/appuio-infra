@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ghost
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - name: ghost
+          image: docker.io/library/ghost:3.17.1
+          env:
+            - name: url
+              value: https://mhu.dev
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+          ports:
+            - name: http
+              containerPort: 2368
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/ghost/content
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: ghost-data
+
