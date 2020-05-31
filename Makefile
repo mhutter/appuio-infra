@@ -26,9 +26,9 @@ cockroachdb/cockroachdb-statefulset.yaml:
 .PHONY: deploy
 deploy: cockroachdb/cockroachdb-statefulset.yaml
 	ls -1 */kustomization.yml | \
-	xargs dirname | \
-	while read -r dir; \
-		do kubectl apply --dry-run="$(dry-run)" -k "$$dir"; \
+	while read -r f; do \
+		dir="$$(dirname "$$f")"; \
+		kubectl apply --dry-run="$(dry-run)" -k "$$dir"; \
 	done
 
 clean:
