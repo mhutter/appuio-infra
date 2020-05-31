@@ -1,0 +1,17 @@
+= APPUiO Infra
+
+Manifests for my personal stuff deployed on https://appuio.ch/[APPUiO Public].
+
+
+== Usage
+
+Run `make` to see usage instructions.
+
+== License
+
+MIT (see link:LICENSE[LICENSE])
+
+---
+> https://hutter.io/[Manuel Hutter] -
+> GitHub https://github.com/mhutter[@mhutter] -
+> Twitter https://twitter.com/dratir[@dratir]
