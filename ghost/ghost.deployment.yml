@@ -20,6 +20,12 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "1"
+          readinessProbe:
+            tcpSocket:
+              port: http
+          livenessProbe:
+            tcpSocket:
+              port: http
           ports:
             - name: http
               containerPort: 2368
