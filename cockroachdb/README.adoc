@@ -1,0 +1,11 @@
+= CockroachDB deployment
+
+== Prerequisites
+
+Since the built-in CA cannot be used on shared K8s clusters, we have to bootstrap our own CA.
+
+* clone https://github.com/mhutter/cockroachdb-ca[mhutter/cockroachdb-ca]
+* run `make NAMESPACE=mhu-infra CLIENTS='root ...'`
+* run `kubectl apply -f cockroachdb-node.secret.yaml`
+
+Now CockroachDB can be deployed and initialized (`kubectl exec -it cockroachdb-0 -- /cockroach/cockroach init --certs-dir=/tmp/cockroach-certs`)
