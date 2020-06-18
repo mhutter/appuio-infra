@@ -7,6 +7,4 @@ commonLabels:
 resources:
   - cockroachdb-statefulset.yaml
 patchesStrategicMerge:
-  - set_pvc_size.yml
-  - set_resources.yml
-  - secret_permission_hack.yml
+  - cockroachdb-patches.yaml
