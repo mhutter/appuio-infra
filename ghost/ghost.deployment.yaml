@@ -9,7 +9,7 @@ spec:
     spec:
       containers:
         - name: ghost
-          image: docker.io/library/ghost:3.18.1
+          image: docker.io/library/ghost:3.20.1
           env:
             - name: url
               value: https://mhu.dev
