@@ -1,0 +1,5 @@
+= Keycloak =
+
+Preparations:
+
+    kubectl create secret generic keycloak-admin --from-literal password='supersekritpassword'

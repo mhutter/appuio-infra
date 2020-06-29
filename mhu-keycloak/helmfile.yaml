@@ -1,0 +1,73 @@
+---
+repositories:
+  - name: codecentric
+    url: https://codecentric.github.io/helm-charts
+
+helmDefaults:
+  createNamespace: false
+
+releases:
+  - name: keycloak
+    namespace: mhu-keycloak
+    labels:
+      app: keycloak
+    chart: codecentric/keycloak
+    version: 8.2.2
+    values:
+      - keycloak:
+          replicas: 3
+
+          # Version
+          image:
+            tag: "10.0.2"
+
+          # Route setup
+          route:
+            enabled: true
+            host: id.mhu.dev
+            annotations:
+              kubernetes.io/tls-acme: "true"
+
+          # Admin credentials
+          existingSecret: keycloak-admin
+
+          # Resource allocation
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              cpu: "2"
+              memory: "1Gi"
+
+          # OpenShift workarounds
+          securityContext:
+            runAsUser: 1013310000
+            fsGroup: 1013310000
+          containerSecurityContext:
+            runAsUser: 1013310000
+
+          # Database
+          persistence:
+            deployPostgres: true
+            dbVendor: postgres
+
+        postgresql:
+          # PostgreSQL storage
+          persistence:
+            enabled: true
+            size: 5Gi
+            storageClass: gluster-database
+
+          # PostgreSQL resources
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "2"
+              memory: "2Gi"
+
+          # PostgreSQL OpenShift workarounds
+          securityContext:
+            enabled: false  # OpenShift's (more strict) defaults will be applied
